@@ -20,9 +20,10 @@ public class Boundary {
 	
 	public void makeLines() {
 		for(int i = 0; i < points.size() - 1; i ++) {
-			int[] lineCord = {points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y, };
+			int[] lineCord = {points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y};
 			lineCords.add(lineCord);
 		}
+		lineCords.add(new int[] {points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y});
 	}
 	
 	void paint(Graphics g) {

@@ -35,7 +35,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(0,200,defaultAttributes));
         bounds = new Boundary(points);
         bounds.addPoint(new Point(600,200,defaultAttributes));
-        testZone = new Zone("Zone",bounds);
+        //testZone = new Zone("Zone",bounds);
 
         buttonSetup();
 
@@ -50,7 +50,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         	g.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
         }
         g.translate(x, y);
-        testZone.paint(g);
+        //testZone.paint(g);
         bounds.paint(g);
         
         buttonHandler();

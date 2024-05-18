@@ -22,6 +22,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     ArrayList<Point> points = new ArrayList<Point>();
     ArrayList<String> defaultAttributes = new ArrayList<String>();
     Boundary bounds;
+    Zone testZone;
 
     public Main() {
         defaultAttributes.add("Balls1");
@@ -35,6 +36,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         ClosedLoop test = new ClosedLoop(points);
 
         bounds = new Boundary(points);
+        testZone = new Zone("Zone",bounds);
 
         buttonSetup();
 
@@ -49,13 +51,14 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         	g.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
         }
         g.translate(x, y);
-        
+        testZone.paint(g);
         bounds.paint(g);
         
         buttonHandler();
         if(mouse.mouseDown == true) {
         	g.translate(-(mouse.x - mouse.clickx), -(mouse.y - mouse.clicky));
         }
+
         g.translate(-x, -y);
         
         mouse.paint(g);

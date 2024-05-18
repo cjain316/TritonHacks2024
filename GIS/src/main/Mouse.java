@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.Point;
 
 public class Mouse {
-    public int x,y;
+    public int x,y,clickx,clicky;
     public boolean mouseDown;
 
     public Mouse() {

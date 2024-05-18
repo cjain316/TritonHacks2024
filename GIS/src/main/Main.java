@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -9,7 +10,8 @@ import javax.swing.*;
 
 public class Main extends JPanel implements KeyListener, ActionListener, MouseListener {
     public SysInf sysinf = new SysInf();
-    public Mouse mouse = new Mouse();
+    public Mouse mouse = new Mouse();    
+    int x = 0, y = 0;
 
     public ArrayList<Button> buttons = new ArrayList<Button>();
 
@@ -21,12 +23,11 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         defaultAttributes.add("Balls1");
 
 
+        points.add(new Point(0,100,defaultAttributes));
         points.add(new Point(100,100,defaultAttributes));
-        points.add(new Point(200,100,defaultAttributes));
-        points.add(new Point(200,200,defaultAttributes));
-        points.add(new Point(150,300,defaultAttributes));
         points.add(new Point(100,200,defaultAttributes));
-
+        points.add(new Point(50,300,defaultAttributes));
+        points.add(new Point(0,200,defaultAttributes));
 
         bounds = new Boundary(points);
 
@@ -38,13 +39,17 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     public void paint(Graphics g) {
         super.paintComponent(g);
         updateRoot();
+        
         Graphics2D g2 = (Graphics2D) g;
 
-        if (mouse.mouseDown) {
-            buttonHandler();
+        if(mouse.mouseDown == true) {
+        	g2.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
         }
-
-        mouse.paint(g);
+        	g2.translate(x, y);
+        
+        
+        System.out.println(g2.getTransform());
+        //mouse.paint(g);
         bounds.paint(g);
     }
 
@@ -96,7 +101,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     }
 
     public void jFrameSetup() {
-        JFrame f = new JFrame("GIS");
+    	JFrame f = new JFrame("GIS");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(
                 sysinf.getScreenSize().width,
@@ -104,6 +109,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         );
         f.add(this);
         f.addKeyListener(this);
+        f.addMouseListener(this);
         f.setUndecorated(true);
         f.setResizable(false);
 
@@ -170,17 +176,21 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+    	
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         mouse.mouseDown = true;
+        mouse.clickx = e.getX();
+        mouse.clicky = e.getY();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouse.mouseDown = false;
+    	mouse.mouseDown = false;
+    	x += mouse.x - mouse.clickx;
+    	y += mouse.y - mouse.clicky;
     }
 
     @Override

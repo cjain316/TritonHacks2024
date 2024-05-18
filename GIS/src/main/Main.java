@@ -1,20 +1,19 @@
 package main;
 
+import java.awt.*;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.net.URL;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
+
 public class Main extends JPanel implements KeyListener, ActionListener {
     public SysInf sysinf = new SysInf();
+    public Mouse mouse = new Mouse();
+
     public Main() {
         JFrame f = new JFrame("GIS");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,25 +23,40 @@ public class Main extends JPanel implements KeyListener, ActionListener {
         );
         f.add(this);
         f.addKeyListener(this);
+        f.setUndecorated(true);
         f.setResizable(false);
 
-        t = new Timer(60, this);
+        t = new Timer(7, this);
         t.start();
         f.setVisible(true);
     }
 
+    public void paint(Graphics g) {
+        super.paintComponent(g);
+        updateRoot();
+        Graphics2D g2 = (Graphics2D) g;
+
+        mouse.paint(g);
+
+    }
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         Main f = new Main();
-
     }
 
-    public void paint(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-
+    public void updateMousePosition() {
+        PointerInfo p = MouseInfo.getPointerInfo();
+        java.awt.Point point = p.getLocation();
+        SwingUtilities.convertPointFromScreen(point, getFocusCycleRootAncestor());
+        mouse.setPosition((int)(point.getX()),(int)(point.getY()));
     }
+
+    public void updateRoot() {
+        updateMousePosition();
+    }
+
+
 
 
     @Override

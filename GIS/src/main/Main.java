@@ -1,5 +1,8 @@
 package main;
 
+import main.coordinateHandler.Coordinate;
+import main.coordinateHandler.Latitude;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -14,7 +17,11 @@ import javax.swing.*;
 
 public class Main extends JPanel implements KeyListener, ActionListener, MouseListener {
     public SysInf sysinf = new SysInf();
-    public Mouse mouse = new Mouse();    
+    public Mouse mouse = new Mouse();
+    public Map moldova = new Map("resources/imgresources/moldova.png",
+            new Coordinate(new Latitude(47,33,28),new Latitude(29,00,29)),
+            new Coordinate(new Latitude(46,58,58),new Latitude(30,17,7))
+    );
     int x = 0, y = 0;
 
     public ArrayList<Button> buttons = new ArrayList<Button>();
@@ -35,7 +42,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(0,200,defaultAttributes));
 
         bounds = new Boundary(points);
-        testZone = new Zone("Zone",bounds);
+        testZone = new Zone("Zone",bounds,new Color(50,200,50));
 
         buttonSetup();
 
@@ -52,6 +59,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         g.translate(x, y);
         testZone.paint(g);
         bounds.paint(g);
+        moldova.paint(g);
         
         buttonHandler();
         if(mouse.mouseDown == true) {

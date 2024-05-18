@@ -16,7 +16,8 @@ public class Map {
         this.bottomRight = bottomRight;
     }
 
-    public void paint(Graphics2D g2) {
+    public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
         AffineTransform tx = AffineTransform.getTranslateInstance(0, 0);
         Image Sprite = getImage(imagePath);
         g2.drawImage(Sprite, tx, null);

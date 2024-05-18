@@ -32,7 +32,6 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(100,200,defaultAttributes));
         points.add(new Point(50,300,defaultAttributes));
         points.add(new Point(0,200,defaultAttributes));
-        ClosedLoop test = new ClosedLoop(points);
 
         bounds = new Boundary(points);
 

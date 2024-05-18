@@ -10,9 +10,22 @@ public class Latitude {
     }
 
     public void translate(int latitude, int minutes, int seconds) {
-        int secondsTranslate = (60*minutes)+seconds;
-
+        this.seconds += seconds;
+        this.minutes += minutes;
         this.latitude += latitude;
-
+        
+        if(seconds >= 60) {
+        	minutes += seconds / 60;
+        	seconds = seconds % 60;
+        }
+        
+        if(minutes >= 60) {
+        	latitude += minutes / 60;
+        	minutes = minutes % 60;
+        }
+        
+        if(latitude > 180) {
+        	latitude = latitude % 180;
+        }
     }
 }

@@ -19,37 +19,9 @@ public class Boundary {
 	}
 	
 	public void makeLines() {
-		Point startingPoint = points.get(0);
-		Point point = points.get(0);
-		int numLines = 0;
-		int finalNumLines = points.size() - 1;
-		
-		while(numLines < finalNumLines) {
-			Point nextPoint;
-			double lowDist = 0;
-			
-			for(int j = 0; j < points.size(); j ++) {
-				nextPoint = points.get(j);
-				
-				if(point == nextPoint || point == nextPoint.nextPoint
-				||(nextPoint == startingPoint && numLines != finalNumLines - 1)) {
-					continue;
-				}
-				
-				double xDist = point.x - nextPoint.x;
-				double yDist = point.y - nextPoint.y;
-				double dist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-				
-				if(j == 0) {
-					lowDist = dist;
-				}else if(dist < lowDist) {
-					lowDist = dist;
-					numLines ++;
-					int[] lineCord = {point.x, point.y, nextPoint.x, nextPoint.y};
-					lineCords.add(lineCord);
-					break;
-				}
-			}
+		for(int i = 0; i < points.size() - 1; i ++) {
+			int[] lineCord = {points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y, };
+			lineCords.add(lineCord);
 		}
 	}
 	

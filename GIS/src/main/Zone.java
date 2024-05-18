@@ -1,14 +1,17 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Zone {
     public String name;
     public Boundary boundary;
+    public Color color;
     
-    public Zone(String name, Boundary boundary) {
+    public Zone(String name, Boundary boundary, Color color) {
     	this.name = name;
     	this.boundary = boundary;
+    	this.color = color;
     }
     
     public void paint(Graphics g) {
@@ -19,7 +22,7 @@ public class Zone {
     		x[i] = boundary.points.get(i).x;
     		y[i] = boundary.points.get(i).y;
     	}
-    	
+    	g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
     	g.fillPolygon(x, y, boundary.points.size());
     }
     

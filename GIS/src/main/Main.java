@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+//moldova coordinates
+//top left     47 33 28 N 29 00 29 E
+//bottom right 46 58 58 N 30 17 07 E
+
 public class Main extends JPanel implements KeyListener, ActionListener, MouseListener {
     public SysInf sysinf = new SysInf();
     public Mouse mouse = new Mouse();

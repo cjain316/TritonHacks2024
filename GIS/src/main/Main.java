@@ -54,12 +54,32 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     }
 
     public void paintButtons(Graphics g) {
+        //paint top bar
+        g.setColor(new Color(90,90,90));
+        g.fillRect(0,0,sysinf.getScreenSize().width,sysinf.getScreenSize().height/18);
         for (int i = 0; i < buttons.size(); i++) {
             String uuid = buttons.get(i).getUUID();
+
+
             if (uuid.equals("exitbutton")) {
                 Button b = buttons.get(i);
                 g.setColor(new Color(45,45,45));
                 g.fillRect(b.getX(),b.getY(),b.getSize().width,b.getSize().height);
+
+                g.setColor(new Color(200,200,200));
+                g.drawLine( //top left to bottom right
+                        b.getX()+(b.getSize().width/4),
+                        b.getY()+(b.getSize().height/4),
+                        b.getX()+((b.getSize().width/4)*3),
+                        b.getY()+((b.getSize().height/4)*3)
+                );
+                g.drawLine( //top right to bottom left
+                        b.getX()+((b.getSize().width/4)*3),
+                        b.getY()+(b.getSize().height/4),
+                        b.getX()+(b.getSize().width/4),
+                        b.getY()+((b.getSize().height/4)*3)
+                );
+
             }
         }
     }

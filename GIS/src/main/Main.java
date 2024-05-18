@@ -28,7 +28,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(100,200,defaultAttributes));
 
 
-        bounds = new Boundary(points);
+        //bounds = new Boundary(points);
 
         buttonSetup();
 
@@ -40,12 +40,12 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         updateRoot();
         Graphics2D g2 = (Graphics2D) g;
 
-        if (mouse.mouseDown) {
-            buttonHandler();
-        }
+        buttonHandler();
 
         mouse.paint(g);
-        bounds.paint(g);
+
+        paintButtons(g);
+        //bounds.paint(g);
     }
 
     public static void main(String[] args) {
@@ -53,11 +53,13 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         Main f = new Main();
     }
 
-    public void paintButtons() {
+    public void paintButtons(Graphics g) {
         for (int i = 0; i < buttons.size(); i++) {
             String uuid = buttons.get(i).getUUID();
             if (uuid.equals("exitbutton")) {
-
+                Button b = buttons.get(i);
+                g.setColor(new Color(45,45,45));
+                g.fillRect(b.getX(),b.getY(),b.getSize().width,b.getSize().height);
             }
         }
     }
@@ -75,11 +77,12 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
                 uuids.add(tempButton.getUUID());
             }
         }
-
-        for (int i = 0; i < uuids.size(); i++) {
-            String curUUID = uuids.get(i);
-            if (curUUID == "exitbutton") {
-                System.exit(0);
+        if (mouse.mouseDown) {
+            for (int i = 0; i < uuids.size(); i++) {
+                String curUUID = uuids.get(i);
+                if (curUUID.equals("exitbutton")) {
+                    System.exit(0);
+                }
             }
         }
     }
@@ -87,10 +90,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     public void buttonSetup() {
         buttons.add(new Button(
-                sysinf.getScreenSize().width-(sysinf.getScreenSize().width/10),
+                sysinf.getScreenSize().width-(sysinf.getScreenSize().width/32),
                 0,
-                sysinf.getScreenSize().height/10,
-                sysinf.getScreenSize().width/10,
+                sysinf.getScreenSize().height/18,
+                sysinf.getScreenSize().width/32,
                 "exitbutton"
         ));
     }
@@ -104,6 +107,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         );
         f.add(this);
         f.addKeyListener(this);
+        f.addMouseListener(this);
         f.setUndecorated(true);
         f.setResizable(false);
 

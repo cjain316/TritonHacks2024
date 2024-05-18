@@ -130,6 +130,13 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
                 sysinf.getScreenSize().width/32,
                 "exitbutton"
         ));
+        buttons.add(new Button(
+                sysinf.getScreenSize().width-(sysinf.getScreenSize().width/32),
+                0,
+                sysinf.getScreenSize().height/18,
+                sysinf.getScreenSize().width/32,
+                "exitbutton"
+        ));
     }
 
     public void jFrameSetup() {

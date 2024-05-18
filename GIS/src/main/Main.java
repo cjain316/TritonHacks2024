@@ -32,9 +32,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(100,200,defaultAttributes));
         points.add(new Point(50,300,defaultAttributes));
         points.add(new Point(0,200,defaultAttributes));
-
         bounds = new Boundary(points);
-
+        bounds.addPoint(new Point(600,200,defaultAttributes));
         buttonSetup();
 
         jFrameSetup();

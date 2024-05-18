@@ -31,6 +31,7 @@ public class Main extends JPanel implements KeyListener, ActionListener {
         f.setVisible(true);
     }
 
+
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         Main f = new Main();

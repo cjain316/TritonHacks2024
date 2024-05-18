@@ -14,6 +14,8 @@ public class Boundary {
 	public Boundary(ArrayList<Point> points) {
 		this.points = points;
 		lineCords = new ArrayList<int[]>();
+
+		makeLines();
 	}
 	
 	public void makeLines() {

@@ -14,7 +14,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 public class Main extends JPanel implements KeyListener, ActionListener {
-    Timer c = new Timer(1,this);
+    public SysInf sysinf = new SysInf();
+    public Main() {
+        JFrame f = new JFrame("GIS");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(
+                sysinf.getScreenSize().width,
+                sysinf.getScreenSize().height
+        );
+        f.add(this);
+        f.addKeyListener(this);
+        f.setResizable(false);
+
+        t = new Timer(60, this);
+        t.start();
+        f.setVisible(true);
+    }
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -55,31 +71,6 @@ public class Main extends JPanel implements KeyListener, ActionListener {
     }
 
     Timer t;
-
-    public Main() {
-        JFrame f = new JFrame("GIS");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1920,1080);
-        f.add(this);
-        f.addKeyListener(this);
-        f.setResizable(false);
-
-        t = new Timer(60, this);
-        t.start();
-        f.setVisible(true);
-
-
-
-    }
-
-    private boolean randomBool() {
-        int ran = (int)(Math.random()*2);
-        if (ran == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     protected Image getImage(String path) {
 

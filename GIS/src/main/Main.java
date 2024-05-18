@@ -96,6 +96,20 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
                 );
 
             }
+
+            if (uuid.equals("fullscreenbutton")) {
+                Button b = buttons.get(i);
+                g.setColor(new Color(45,45,45));
+                g.fillRect(b.getX(),b.getY(),b.getSize().width,b.getSize().height);
+
+                g.setColor(new Color(200,200,200));
+                g.drawRect( //top left to bottom right
+                        b.getX()+(b.getSize().width/4),
+                        b.getY()+(b.getSize().height/4),
+                        b.getSize().width/2,
+                        b.getSize().height/2
+                );
+            }
         }
     }
 
@@ -118,6 +132,13 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
                 if (curUUID.equals("exitbutton")) {
                     System.exit(0);
                 }
+                if (curUUID.equals("fullscreenbutton")) {
+                    f.dispose();
+                    mouse.mouseDown = false;
+                    f.setUndecorated(!f.isUndecorated());
+                    f.setResizable(!f.isResizable());
+                    f.setVisible(true);
+                }
             }
         }
     }
@@ -131,10 +152,18 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
                 sysinf.getScreenSize().width/32,
                 "exitbutton"
         ));
+        buttons.add(new Button(
+                sysinf.getScreenSize().width-((sysinf.getScreenSize().width/32)*2),
+                0,
+                sysinf.getScreenSize().height/18,
+                sysinf.getScreenSize().width/32,
+                "fullscreenbutton"
+        ));
     }
 
+    JFrame f = new JFrame("GIS");
+
     public void jFrameSetup() {
-    	JFrame f = new JFrame("GIS");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(
                 sysinf.getScreenSize().width,

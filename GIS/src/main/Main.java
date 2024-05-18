@@ -36,6 +36,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         updateRoot();
         Graphics2D g2 = (Graphics2D) g;
 
+        if (mouse.mouseDown) {
+            buttonHandler();
+        }
+
         mouse.paint(g);
         //bounds.paint(g);
     }
@@ -45,7 +49,16 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         Main f = new Main();
     }
 
-    public void ButtonHandler() {
+    public void paintButtons() {
+        for (int i = 0; i < buttons.size(); i++) {
+            String uuid = buttons.get(i).getUUID();
+            if (uuid.equals("exitbutton")) {
+                
+            }
+        }
+    }
+
+    public void buttonHandler() {
         ArrayList<String> uuids = new ArrayList<String>();
         Rectangle mouseHitbox = new Rectangle(mouse.x, mouse.y, 1,1);
         for (int i = 0; i < buttons.size(); i++) {

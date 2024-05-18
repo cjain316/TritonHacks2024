@@ -33,7 +33,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(50,300,defaultAttributes));
         points.add(new Point(0,200,defaultAttributes));
 
-        //bounds = new Boundary(points);
+        bounds = new Boundary(points);
 
         buttonSetup();
 
@@ -43,24 +43,23 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     public void paint(Graphics g) {
         super.paintComponent(g);
         updateRoot();
-        
-        Graphics2D g2 = (Graphics2D) g;
 
         if(mouse.mouseDown == true) {
-        	g2.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
+        	g.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
         }
-        	g2.translate(x, y);
+        g.translate(x, y);
         
-        
-        System.out.println(g2.getTransform());
-        //mouse.paint(g);
         bounds.paint(g);
+        
         buttonHandler();
-
+        if(mouse.mouseDown == true) {
+        	g.translate(-(mouse.x - mouse.clickx), -(mouse.y - mouse.clicky));
+        }
+        g.translate(-x, -y);
+        
         mouse.paint(g);
 
         paintButtons(g);
-        //bounds.paint(g);
     }
 
     public static void main(String[] args) {

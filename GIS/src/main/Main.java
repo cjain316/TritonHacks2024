@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+//moldova coordinates
+//top left     47 33 28 N 29 00 29 E
+//bottom right 46 58 58 N 30 17 07 E
+
 public class Main extends JPanel implements KeyListener, ActionListener, MouseListener {
     public SysInf sysinf = new SysInf();
     public Mouse mouse = new Mouse();    
@@ -29,7 +33,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         points.add(new Point(50,300,defaultAttributes));
         points.add(new Point(0,200,defaultAttributes));
 
-        bounds = new Boundary(points);
+        //bounds = new Boundary(points);
 
         buttonSetup();
 
@@ -51,6 +55,12 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         System.out.println(g2.getTransform());
         //mouse.paint(g);
         bounds.paint(g);
+        buttonHandler();
+
+        mouse.paint(g);
+
+        paintButtons(g);
+        //bounds.paint(g);
     }
 
     public static void main(String[] args) {
@@ -58,10 +68,32 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         Main f = new Main();
     }
 
-    public void paintButtons() {
+    public void paintButtons(Graphics g) {
+        //paint top bar
+        g.setColor(new Color(90,90,90));
+        g.fillRect(0,0,sysinf.getScreenSize().width,sysinf.getScreenSize().height/18);
         for (int i = 0; i < buttons.size(); i++) {
             String uuid = buttons.get(i).getUUID();
+
+
             if (uuid.equals("exitbutton")) {
+                Button b = buttons.get(i);
+                g.setColor(new Color(45,45,45));
+                g.fillRect(b.getX(),b.getY(),b.getSize().width,b.getSize().height);
+
+                g.setColor(new Color(200,200,200));
+                g.drawLine( //top left to bottom right
+                        b.getX()+(b.getSize().width/4),
+                        b.getY()+(b.getSize().height/4),
+                        b.getX()+((b.getSize().width/4)*3),
+                        b.getY()+((b.getSize().height/4)*3)
+                );
+                g.drawLine( //top right to bottom left
+                        b.getX()+((b.getSize().width/4)*3),
+                        b.getY()+(b.getSize().height/4),
+                        b.getX()+(b.getSize().width/4),
+                        b.getY()+((b.getSize().height/4)*3)
+                );
 
             }
         }
@@ -80,11 +112,12 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
                 uuids.add(tempButton.getUUID());
             }
         }
-
-        for (int i = 0; i < uuids.size(); i++) {
-            String curUUID = uuids.get(i);
-            if (curUUID == "exitbutton") {
-                System.exit(0);
+        if (mouse.mouseDown) {
+            for (int i = 0; i < uuids.size(); i++) {
+                String curUUID = uuids.get(i);
+                if (curUUID.equals("exitbutton")) {
+                    System.exit(0);
+                }
             }
         }
     }
@@ -92,10 +125,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     public void buttonSetup() {
         buttons.add(new Button(
-                sysinf.getScreenSize().width-(sysinf.getScreenSize().width/10),
+                sysinf.getScreenSize().width-(sysinf.getScreenSize().width/32),
                 0,
-                sysinf.getScreenSize().height/10,
-                sysinf.getScreenSize().width/10,
+                sysinf.getScreenSize().height/18,
+                sysinf.getScreenSize().width/32,
                 "exitbutton"
         ));
     }

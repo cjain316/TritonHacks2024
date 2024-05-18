@@ -20,11 +20,15 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     public Main() {
         defaultAttributes.add("Balls1");
 
-        for (var i = 0; i < 10; i++) {
-            points.add(new Point(randInt(0,1920),randInt(0,1080),defaultAttributes));
-        }
 
-        //bounds = new Boundary(points);
+        points.add(new Point(100,100,defaultAttributes));
+        points.add(new Point(200,100,defaultAttributes));
+        points.add(new Point(200,200,defaultAttributes));
+        points.add(new Point(150,300,defaultAttributes));
+        points.add(new Point(100,200,defaultAttributes));
+
+
+        bounds = new Boundary(points);
 
         buttonSetup();
 
@@ -41,7 +45,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         }
 
         mouse.paint(g);
-        //bounds.paint(g);
+        bounds.paint(g);
     }
 
     public static void main(String[] args) {
@@ -53,7 +57,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         for (int i = 0; i < buttons.size(); i++) {
             String uuid = buttons.get(i).getUUID();
             if (uuid.equals("exitbutton")) {
-                
+
             }
         }
     }

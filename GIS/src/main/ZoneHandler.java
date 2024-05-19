@@ -101,8 +101,12 @@ public class ZoneHandler {
 
                 System.out.println(attributes.toString());
 
-                Zone add = new Zone(name,boundary,new Color(90,250,90),attributes);
-                //add.boundary.lineCords = lineCoords;
+                Zone add = new Zone(name,boundary,new Color(
+                        randInt(170,250),
+                        randInt(170,250),
+                        randInt(170,250)
+                ),attributes);
+                add.boundary.lineCords = lineCoords;
 
                 output.add(add);
 
@@ -168,5 +172,9 @@ public class ZoneHandler {
         String raw1 = raw.substring(1,raw.length()-1);
         String[] data = raw1.split(",");
         return new Point(parseInt(data[0]),parseInt(data[1]));
+    }
+
+    private int randInt(int high, int low) {
+        return ((int)(Math.random()*(high-low)) + low);
     }
 }

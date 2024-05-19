@@ -262,20 +262,32 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mouse.mouseDown = true;
-        mouse.clickx = e.getX();
-        mouse.clicky = e.getY();
+    	switch(e.getButton()) {
+    	case 1:
+    		mouse.mouseDown = true;
+            mouse.clickx = e.getX();
+            mouse.clicky = e.getY();
+            break;
+    	}
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-    	mouse.mouseDown = false;
-    	x += mouse.x - mouse.clickx;
-    	y += mouse.y - mouse.clicky;
-        tempzone.boundary.addPoint(new Point(
-                mouse.x - x,
-                mouse.y - y
-        ));
+    	switch(e.getButton()) {
+    	case 1:
+	    	mouse.mouseDown = false;
+	    	x += mouse.x - mouse.clickx;
+	    	y += mouse.y - mouse.clicky;
+	        break;
+	        
+    	case 3:
+    		tempzone.boundary.addPoint(new Point(
+	                mouse.x - x,
+	                mouse.y - y
+	        ));
+    		break;
+    	}
+    	
     }
 
     @Override

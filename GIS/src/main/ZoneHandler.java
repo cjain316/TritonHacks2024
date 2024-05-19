@@ -23,7 +23,7 @@ public class ZoneHandler {
         try {
             FileWriter f = new FileWriter(filePath);
             f.write(z.name + "\n");
-            f.write(z.boundary.toString() + "\n");
+            f.write(z.boundary.PointsToString() + "\n");
             f.write(z.boundary.LinecoordsToString()+"\n");
 
             f.close();

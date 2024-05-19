@@ -94,4 +94,13 @@ public class Boundary {
 		}
 		return output;
 	}
+
+	private String arrToString(int[] arr) {
+		String output = "[";
+		for (int i = 0; i < arr.length; i++) {
+			output += arr[i] + ", ";
+		}
+		output += "]";
+		return output;
+	}
 }

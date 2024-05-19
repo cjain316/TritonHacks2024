@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ZoneHandler {
-    String savesLocation = "src/main/resources/dataresources/zonesaves";
+    String savesLocation = "src/main/resources/dataresources/zonesaves/";
     String[] dirFiles;
     public ZoneHandler() {
         dirFiles = getFileNames(savesLocation);
@@ -23,6 +23,10 @@ public class ZoneHandler {
         try {
             FileWriter f = new FileWriter(filePath);
             f.write(z.name + "\n");
+            f.write(z.boundary.toString() + "\n");
+            f.write(z.boundary.LinecoordsToString()+"\n");
+
+            f.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -49,10 +53,9 @@ public class ZoneHandler {
 
     private String arrToString(String[] arr) {
         String output = "[";
-        for (int i = 0; i < arr.length-1; i++) {
+        for (int i = 0; i < arr.length; i++) {
             output += arr[i] + ", ";
         }
-        output += arr[arr.length-1];
         output += "]";
         return output;
     }

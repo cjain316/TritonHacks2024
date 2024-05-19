@@ -55,6 +55,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         buttonSetup();
 
         jFrameSetup();
+
+        tempzone.attributes.add("Water");
     }
 
     public void paint(Graphics g) {
@@ -66,6 +68,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         int maxY = sysinf.getScreenSize().height - height;
         
         //System.out.println("maxX: " + maxX);
+		//github.com/cjain316/TritonHacks2024.git
                 
 	    x = x < maxX ? maxX : x;
 	    y = y < maxY ? maxY : y;

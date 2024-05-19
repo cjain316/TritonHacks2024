@@ -46,15 +46,15 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     public Main() {
         defaultAttributes.add("NativePlants");
-        Filters.add("NativePlants");
         
         //IMPORTANT HISTORY DO NOT DELETE
 //        ArrayList<String> attributes = new ArrayList<String>();
 //        attributes.add("flat");
 //        attributes.add("water");
 //        attributes.add("freaky 👅");
-        
-        menu = new DropdownMenu(100, 0, 100, sysinf.getScreenSize().height/18, zones);
+        zones = zoneHandler.parseZones();
+        menu = new DropdownMenu(0, 0, 100, sysinf.getScreenSize().height/18, zones);
+
 
         buttonSetup();
 

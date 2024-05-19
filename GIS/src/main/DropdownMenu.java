@@ -19,21 +19,34 @@ public class DropdownMenu {
 		this.buttonHeight = buttonHeight;
 		attributes = new ArrayList<String>();
 		attributes.add("Select");
+
+		ArrayList<String> combined = new ArrayList<String>();
+
 		for(Zone z : zones) {
-			ArrayList<String> attributes = z.attributes;
-			for(String attribute : attributes) {
-				for(String s : this.attributes) {
-					if(attribute.equals(s)) {
-						continue;
-					}else {
-						this.attributes.add(attribute);
-					}
-				}
+			ArrayList<String> tempattributes = z.attributes;
+			for(String attribute : tempattributes) {
+				combined.add(attribute);
 			}
 		}
+
+		for (int i = 0; i < combined.size(); i++) {
+			if (!attributeInArray(attributes,combined.get(i))) {
+				attributes.add(combined.get(i));
+			}
+		}
+
 		checks = new boolean[attributes.size()];
 		hby = buttonHeight;
 		expanded = false;
+	}
+
+	private boolean attributeInArray(ArrayList<String> arr, String attribute) {
+		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).equals(attribute)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public ArrayList<String> attribute() {

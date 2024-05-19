@@ -93,22 +93,22 @@ public class Boundary {
 	}
 
 	public String PointsToString() {
-		String output = "[|";
+		String output = "[.";
 		for (int i = 0; i < points.size()-1; i++) {
 			output += PointToString(points.get(i));
-			output += "|";
+			output += ".";
 		}
 		output += PointToString(points.get(points.size()-1));
-		output+= "|]";
+		output+= ".]";
 		return output;
 	}
 
 	public String LinecoordsToString() {
-		String output = "[";
+		String output = "[.";
 		for (int i = 0; i < lineCords.size()-1; i++) {
-			output += arrToString(lineCords.get(i)) + "|";
+			output += arrToString(lineCords.get(i)) + ".";
 		}
-		output += arrToString(lineCords.get(lineCords.size()-1)) + "]";
+		output += arrToString(lineCords.get(lineCords.size()-1)) + ".]";
 		return output;
 	}
 
@@ -120,5 +120,13 @@ public class Boundary {
 		output += arr[arr.length-1];
 		output += "]";
 		return output;
+	}
+
+	public int size(){
+		return points.size();
+	}
+
+	public Point get(int i){
+		return points.get(i);
 	}
 }

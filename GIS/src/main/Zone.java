@@ -37,4 +37,20 @@ public class Zone {
 		}
 		return true;
 	}
+
+	// Create a new point on the closest line and return it
+	public Point Onclick(Point p){
+		int minI = 0; double minDist = Point.distFromLine(p, boundary.get(0), boundary.get(1));
+		int n = boundary.size();
+		for(int i = 1; i < n; i++){
+			double dist = Point.distFromLine(p, boundary.get(i), boundary.get((i+1)%n));
+			if(minDist > dist){
+				minDist = dist;
+				minI = i;
+			}
+		}
+		if(minDist < 10) return null;
+		boundary.points.add((minI+1)%n, new Point(p.x, p.y));
+		return boundary.get((minI+1)%n);
+	}
 }

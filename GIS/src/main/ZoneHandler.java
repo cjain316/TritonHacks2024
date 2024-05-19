@@ -19,9 +19,11 @@ public class ZoneHandler {
         System.out.println(arrToString(dirFiles));
     }
 
-    public void save(Zone z) {
+    public void save(Zone zoneInit) {
+        Zone z = zoneInit;
+        z.name = ""+System.currentTimeMillis();
         int numFiles = dirFiles.length;
-        String filePath = savesLocation+"zone"+numFiles+".zone";
+        String filePath = savesLocation+System.currentTimeMillis()+numFiles+".zone";
 
         try {
             FileWriter f = new FileWriter(filePath);

@@ -26,7 +26,7 @@ public class Boundary {
 	public Boundary(ArrayList<Point> points) {
 		this.points = points;
 		lineCords = new ArrayList<int[]>();
-
+		makeLoop();
 		makeLines();
 	}
 
@@ -46,6 +46,22 @@ public class Boundary {
 	}
 
 	private void remakeLoop(){
+		if(points.size() < 2) return;
+		int n = points.size();
+		int ymin = points.get(0).y, min = 0;
+		for (int i = 1; i < n; i++) {
+			int y = points.get(i).y;
+			if ((y < ymin) || (ymin == y && points.get(i).x < points.get(min).x))
+				ymin = points.get(i).y; min = i;
+		}
+
+		swap(0, min);
+		p0 = points.get(0);
+		points.sort(new pointComparator());
+		System.out.println(points);
+	}
+
+	private void makeLoop(){
 		if(points.size() < 2) return;
 		int n = points.size();
 		int ymin = points.get(0).y, min = 0;

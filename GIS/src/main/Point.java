@@ -31,8 +31,17 @@ public class Point {
 		return (val > 0)? 1: 2; // clockwise or counterclock wise
 	}
 
+	public static double distFromLine(Point A, Point B, Point C){
+		 double area = Math.abs(((B.x - A.x)*(C.y - A.y) -
+						  (B.y - A.y)*(C.x - A.x)));
+		 double length = Math.sqrt(Math.pow(B.x-A.x, 2) + Math.pow(B.y-A.y, 2));
+		 return area/length;
+	}
+
 	public String toString(){
 		return "(" + x + "," + y + ")";
 	}
+
+
 
 }

@@ -117,4 +117,12 @@ public class Boundary {
 		output += "]";
 		return output;
 	}
+
+	public int size(){
+		return points.size();
+	}
+
+	public Point get(int i){
+		return points.get(i);
+	}
 }

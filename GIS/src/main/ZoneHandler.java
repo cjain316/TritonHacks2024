@@ -126,7 +126,7 @@ public class ZoneHandler {
 
 
         String[] data = raw.split("\\.");
-        for (int i = 1; i < data.length-2; i++) {
+        for (int i = 1; i < data.length-1; i++) {
             output.add(getLineCoordSet(data[i]));
         }
 
@@ -155,7 +155,7 @@ public class ZoneHandler {
 
         String[] data = raw.split("\\.");
 
-        for (int i = 1; i < data.length-2; i++) {
+        for (int i = 1; i < data.length-1; i++) {
             output.add(getPointFromRaw(data[i]));
         }
 

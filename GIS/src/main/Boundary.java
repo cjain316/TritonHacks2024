@@ -16,13 +16,11 @@ public class Boundary {
 	public Boundary(ArrayList<Point> points) {
 		this.points = points;
 		lineCords = new ArrayList<int[]>();
-		remakeLoop();
 		makeLines();
 	}
 
 	public void addPoint(Point p){
 		points.add(p);
-		remakeLoop();
 		makeLines();
 	}
 
@@ -35,34 +33,6 @@ public class Boundary {
 			}
 			lineCords.add(new int[] {points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y});
 		}
-	}
-	
-	// Convex Hull using Jarvis' Algorithm
-	// From Geeks for Geeks
-	private void remakeLoop(){
-		int n = points.size();
-		if (n < 3) return;
-		ArrayList<Point> hull = new ArrayList<Point>();
-
-		int l = 0;
-		for (int i = 1; i < n; i++)
-			if (points.get(i).x < points.get(l).x)
-				l = i;
-		int p = l, q;
-		do
-		{
-			hull.add(points.get(p));
-			q = (p + 1) % n;
-			for (int i = 0; i < n; i++)
-			{
-				if (Point.orientation(points.get(p), points.get(i), points.get(q)) == 2)
-					q = i;
-			}
-			p = q;
-
-		} while (p != l);
-		System.out.println(hull);
-		points = hull;
 	}
 
 	private void swap(int i, int j){

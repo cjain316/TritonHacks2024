@@ -53,6 +53,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 //        attributes.add("water");
 //        attributes.add("freaky 👅");
         zones = zoneHandler.parseZones();
+        System.out.println(zones);
         menu = new DropdownMenu(0, 0, 100, sysinf.getScreenSize().height/18, zones);
 
 
@@ -334,6 +335,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     	}
     }
 
+    Point selected;
+
     @Override
     public void mouseReleased(MouseEvent e) {
     	switch(e.getButton()) {
@@ -345,7 +348,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	        
     	case 3:
     		//restructure for scalability
-    		if(pointSelected == false) {
+            tempzone = zones.get(0);
+    		if(!pointSelected) {
     			pointFinger:
 	    		for(int i = 0; i < tempzone.boundary.points.size(); i ++) {
 	    			Point p = tempzone.boundary.points.get(i);
@@ -354,26 +358,34 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	    			double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
 	    			
 	    			if(dist < p.width / 2 + 10) {
-	    				pointIndex = i;
+                        selected = p;
 	    				pointSelected = true;
 	    				p.select();
 	    				System.out.println("Point selected");
 	    				break pointFinger;
 	    			}
 	    		}
-    			
+
     			//THIS MAKES POINTS
     			if(pointSelected == false) {
-    				tempzone.boundary.addPoint(new Point(mouse.x - x, mouse.y - y));
+                    System.out.println("Creating point");
+                    selected = tempzone.Onclick(new Point(mouse.x - x, mouse.y - y));
+                    if(selected != null){
+                        pointSelected = true;
+                        System.out.println(selected);
+                        selected.select();
+                    }
     			}
     		}else {
     			//relocate point
-    			Point p = tempzone.boundary.points.get(pointIndex);
+                System.out.println("relocating point");
+    			Point p = selected;
     			int xdist = mouse.x + x - p.x;
     			int ydist = mouse.y + y - p.y;
     			double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
-    			
     			p.deselect();
+                pointSelected = false;
+
     			if(dist >= p.width / 2 + 10) {
     				pointSelected = false;
     				System.out.println("Point relocated");

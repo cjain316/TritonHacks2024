@@ -1,15 +1,28 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Point {
 
 	public Point nextPoint;
-	int x, y;
+	int x, y, width;
+	boolean selected;
 	
 	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
+		width = 10;
+		selected = false;
+	}
+	
+	public void select() {
+		selected = true;
+	}
+	
+	public void deselect() {
+		selected = false;
 	}
 	
 	public void setPoint(Point p) {
@@ -31,8 +44,26 @@ public class Point {
 		return (val > 0)? 1: 2; // clockwise or counterclock wise
 	}
 
+	public static double distFromLine(Point A, Point B, Point C){
+		 double area = Math.abs(((B.x - A.x)*(C.y - A.y) -
+						  (B.y - A.y)*(C.x - A.x)));
+		 double length = Math.sqrt(Math.pow(B.x-A.x, 2) + Math.pow(B.y-A.y, 2));
+		 return area/length;
+	}
+
 	public String toString(){
 		return "(" + x + "," + y + ")";
 	}
+	
+	public void paint(Graphics g) {
+		g.setColor(Color.black);
+		g.fillOval(x - width / 2, y - width / 2, width, width);
+		
+		if(selected == true) {
+			g.drawOval(x - width, y - width, 2*width, 2*width);
+		}
+	}
+
+
 
 }

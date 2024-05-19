@@ -27,6 +27,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     int x = 0, y = 0;
     //borders
     int width = 5370, height = 3490;
+    
+    //selecting points stuff
+    boolean pointSelected = false;
+    int pointIndex;
 
     public ArrayList<Button> buttons = new ArrayList<Button>();
 
@@ -38,7 +42,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     public ZoneHandler zoneHandler = new ZoneHandler();
     
-    DropdownMenu menu;
+    public DropdownMenu menu;
 
     public Main() {
         defaultAttributes.add("NativePlants");
@@ -340,10 +344,44 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	        break;
 	        
     	case 3:
-    		tempzone.boundary.addPoint(new Point(
-	                mouse.x - x,
-	                mouse.y - y
-	        ));
+    		//restructure for scalability
+    		if(pointSelected == false) {
+    			pointFinger:
+	    		for(int i = 0; i < tempzone.boundary.points.size(); i ++) {
+	    			Point p = tempzone.boundary.points.get(i);
+	    			int xdist = mouse.x + x - p.x;
+	    			int ydist = mouse.y + y - p.y;
+	    			double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
+	    			
+	    			if(dist < p.width / 2 + 10) {
+	    				pointIndex = i;
+	    				pointSelected = true;
+	    				p.select();
+	    				System.out.println("Point selected");
+	    				break pointFinger;
+	    			}
+	    		}
+    			
+    			//THIS MAKES POINTS
+    			if(pointSelected == false) {
+    				tempzone.boundary.addPoint(new Point(mouse.x - x, mouse.y - y));
+    			}
+    		}else {
+    			//relocate point
+    			Point p = tempzone.boundary.points.get(pointIndex);
+    			int xdist = mouse.x + x - p.x;
+    			int ydist = mouse.y + y - p.y;
+    			double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
+    			
+    			p.deselect();
+    			if(dist >= p.width / 2 + 10) {
+    				pointSelected = false;
+    				System.out.println("Point relocated");
+    				p.x = mouse.x + x;
+    				p.y = mouse.y + y;
+    				tempzone.boundary.makeLines();
+    			}
+    		}
     		break;
     	}
     	

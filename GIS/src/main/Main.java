@@ -47,7 +47,6 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     public DropdownMenu menu;
 
     public Main() {
-        defaultAttributes.add("NativePlants");
         
         //IMPORTANT HISTORY DO NOT DELETE
 //        ArrayList<String> attributes = new ArrayList<String>();
@@ -62,8 +61,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
         jFrameSetup();
 
-        tempzone.attributes.add("Flowing Water");
-        tempzone.attributes.add("Shallow");
+        tempzone.attributes.add("Vegitation");
+        tempzone.attributes.add("Native");
     }
 
     public void paint(Graphics g) {
@@ -231,6 +230,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         for (Zone z: zones) {
             if (z.boundary.getNumPoints() > 0 && z.checkFilters(Filters)) {
                 z.paint(g);
+                System.out.println(z.attributes.toString());
             }
         }
     }
@@ -339,7 +339,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
             	
             	for(int i = 0; i < menu.attributes.size(); i ++) {
             		if(menu.checks[i] == true) {
-            			Filters.add(menu.attributes.get(i));
+            			Filters.add(menu.attributes.get(i+1));
             		}
             	}
             }

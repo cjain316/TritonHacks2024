@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.lang.classfile.Attribute;
 import java.util.ArrayList;
 
 public class Zone {
@@ -31,9 +32,18 @@ public class Zone {
 		boundary.paint(g);
 	}
 
+	private boolean attributeInArray(ArrayList<String> arr, String attribute) {
+		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).equals(attribute)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean checkFilters(ArrayList<String> filters){
 		for(String filter : filters) {
-			if (!attributes.contains(filter)) return false;
+			if (!attributeInArray(attributes,filter)) return false;
 		}
 		return true;
 	}

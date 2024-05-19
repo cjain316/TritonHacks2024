@@ -15,7 +15,7 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class ZoneHandler {
-    String savesLocation = "src/main/resources/dataresources/zonesaves/";
+    String savesLocation = "src\\main\\resources\\dataresources\\zonesaves\\";
     String[] dirFiles;
     public ZoneHandler() {
         dirFiles = getFileNames(savesLocation);

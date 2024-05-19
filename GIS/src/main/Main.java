@@ -18,7 +18,7 @@ import javax.swing.*;
 public class Main extends JPanel implements KeyListener, ActionListener, MouseListener {
 	public SysInf sysinf = new SysInf();
     public Mouse mouse = new Mouse();
-    public Map moldova = new Map("resources/imgresources/moldova.png",
+    public Map moldova = new Map("resources\\imgresources\\moldova.png",
             new Coordinate(new Latitude(47,33,28),new Latitude(29,00,29)),
             new Coordinate(new Latitude(46,58,58),new Latitude(30,17,7))
     );

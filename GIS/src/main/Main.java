@@ -62,7 +62,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         jFrameSetup();
 
         tempzone.attributes.add("Vegitation");
-        tempzone.attributes.add("Native");
+        tempzone.attributes.add("Invasive");
     }
 
     public void paint(Graphics g) {

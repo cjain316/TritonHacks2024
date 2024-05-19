@@ -74,6 +74,10 @@ public class Boundary {
 	void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		
+		for(Point p : points) {
+			p.paint(g2d);
+		}
+		
 		for(int[] cords : lineCords) {
 			g2d.drawLine(cords[0], cords[1], cords[2], cords[3]);
 		}

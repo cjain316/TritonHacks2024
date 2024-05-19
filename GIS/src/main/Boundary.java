@@ -81,4 +81,17 @@ public class Boundary {
 
 	public int getNumPoints() { return points.size(); }
 
+	public String PointsToString() {
+		String output = "";
+		output += points.toString();
+		return output;
+	}
+
+	public String LinecoordsToString() {
+		String output = "[";
+		for (int i = 0; i < lineCords.size(); i++) {
+			System.out.println(lineCords.get(i).length);
+		}
+		return output;
+	}
 }

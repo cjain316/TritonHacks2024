@@ -235,6 +235,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     public void keyReleased(KeyEvent arg0) {
         // TODO Auto-generated method stub
         System.out.println(arg0.getExtendedKeyCode());
+        switch(arg0.getExtendedKeyCode()) {
+            case 17:
+                zoneHandler.save(tempzone);
+        }
     }
 
     @Override

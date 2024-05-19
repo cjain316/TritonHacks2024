@@ -40,6 +40,10 @@ public class Zone {
 
 	// Create a new point on the closest line and return it
 	public Point Onclick(Point p){
+		if (boundary.points.size() < 3) {
+			boundary.addPoint(p);
+			return p;
+		}
 		int minI = 0; double minDist = Point.distFromLine(p, boundary.get(0), boundary.get(1));
 		int n = boundary.size();
 		for(int i = 1; i < n; i++){

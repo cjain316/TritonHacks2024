@@ -349,52 +349,58 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 	        
     	case 3:
     		//restructure for scalability
-            tempzone = zones.get(0);
-    		if(!pointSelected) {
-    			pointFinger:
-	    		for(int i = 0; i < tempzone.boundary.points.size(); i ++) {
-	    			Point p = tempzone.boundary.points.get(i);
-	    			int xdist = mouse.x + x - p.x;
-	    			int ydist = mouse.y + y - p.y;
-	    			double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
-	    			
-	    			if(dist < p.width / 2 + 10) {
-                        selected = p;
-	    				pointSelected = true;
-	    				p.select();
-	    				System.out.println("Point selected");
-	    				break pointFinger;
-	    			}
-	    		}
 
-    			//THIS MAKES POINTS
-    			if(pointSelected == false) {
-                    System.out.println("Creating point");
-                    selected = tempzone.Onclick(new Point(mouse.x - x, mouse.y - y));
-                    if(selected != null){
-                        pointSelected = true;
-                        System.out.println(selected);
-                        selected.select();
+            if (tempzone.boundary.points.size() >= 3) {
+                if(!pointSelected) {
+                    pointFinger:
+                    for(int i = 0; i < tempzone.boundary.points.size(); i ++) {
+                        Point p = tempzone.boundary.points.get(i);
+                        int xdist = mouse.x + x - p.x;
+                        int ydist = mouse.y + y - p.y;
+                        double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
+
+                        if(dist < p.width / 2 + 10) {
+                            selected = p;
+                            pointSelected = true;
+                            p.select();
+                            System.out.println("Point selected");
+                            break pointFinger;
+                        }
                     }
-    			}
-    		}else {
-    			//relocate point
-                System.out.println("relocating point");
-    			Point p = selected;
-    			int xdist = mouse.x + x - p.x;
-    			int ydist = mouse.y + y - p.y;
-    			double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
-    			p.deselect();
-                pointSelected = false;
+                    if(pointSelected == false) {
+                        System.out.println("Creating point");
+                        selected = tempzone.Onclick(new Point(mouse.x - x, mouse.y - y));
+                        if(selected != null){
+                            pointSelected = true;
+                            System.out.println(selected);
+                            selected.select();
+                        }
+                    }
+                }//THIS MAKES POINTS
+                 else {
+                    //relocate point
+                    System.out.println("relocating point");
+                    Point p = selected;
+                    int xdist = mouse.x + x - p.x;
+                    int ydist = mouse.y + y - p.y;
+                    double dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
+                    p.deselect();
+                    pointSelected = false;
 
-    			if(dist >= p.width / 2 + 10) {
-    				pointSelected = false;
-    				System.out.println("Point relocated");
-    				p.x = mouse.x + x;
-    				p.y = mouse.y + y;
-    				tempzone.boundary.makeLines();
-    			}
-    		}
+                    if(dist >= p.width / 2 + 10) {
+                        pointSelected = false;
+                        System.out.println("Point relocated");
+                        p.x = mouse.x + x;
+                        p.y = mouse.y + y;
+                        tempzone.boundary.makeLines();
+                    }
+                }
+            } else{
+                selected = tempzone.Onclick(new Point(mouse.x - x, mouse.y - y));
+            }
+
+
+
     		break;
     	}
     	

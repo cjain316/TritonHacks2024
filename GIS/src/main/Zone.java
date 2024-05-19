@@ -27,6 +27,8 @@ public class Zone {
 		}
 		g.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
 		g.fillPolygon(x, y, boundary.points.size());
+
+		boundary.paint(g);
 	}
 
 	public boolean checkFilters(ArrayList<String> filters){

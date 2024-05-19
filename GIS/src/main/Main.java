@@ -57,9 +57,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         	g.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
         }
         g.translate(x, y);
-        //testZone.paint(g);
-        bounds.paint(g);
         moldova.paint(g);
+        testZone.paint(g);
         
         buttonHandler();
         if(mouse.mouseDown == true) {

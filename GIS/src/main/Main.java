@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import com.sun.net.httpserver.Filter;
+
 //moldova coordinates
 //top left     47 33 28 N 29 00 29 E
 //bottom right 46 58 58 N 30 17 07 E
@@ -55,7 +57,6 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         zones = zoneHandler.parseZones();
         System.out.println(zones);
         menu = new DropdownMenu(0, 0, 100, sysinf.getScreenSize().height/18, zones);
-
 
         buttonSetup();
 
@@ -331,7 +332,17 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     		mouse.mouseDown = true;
             mouse.clickx = e.getX();
             mouse.clicky = e.getY();
-            menu.checkClick(e);
+            if(menu.checkClick(e) == true) {
+            	while(Filters.size() > 0) {
+            		Filters.remove(0);
+            	}
+            	
+            	for(int i = 0; i < menu.attributes.size(); i ++) {
+            		if(menu.checks[i] == true) {
+            			Filters.add(menu.attributes.get(i));
+            		}
+            	}
+            }
             break;
     	}
     }

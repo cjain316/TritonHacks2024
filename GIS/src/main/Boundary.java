@@ -11,7 +11,6 @@ public class Boundary {
 
 	public ArrayList<Point> points;
 	public ArrayList<int[]> lineCords;
-	public ArrayList<String> attributes;
 	Point p0;
 
 	class pointComparator implements Comparator<Point> {
@@ -24,11 +23,10 @@ public class Boundary {
 		}
 	}
 
-	public Boundary(ArrayList<Point> points, ArrayList<String> attributes) {
+	public Boundary(ArrayList<Point> points) {
 		this.points = points;
 		lineCords = new ArrayList<int[]>();
 
-		this.attributes = attributes;
 		makeLines();
 	}
 

@@ -28,20 +28,21 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     ArrayList<Point> points = new ArrayList<Point>();
     ArrayList<String> defaultAttributes = new ArrayList<String>();
+    ArrayList<String> Filters = new ArrayList<String>();
     Boundary bounds;
     Zone testZone;
 
     public Main() {
         defaultAttributes.add("Balls1");
-
+        Filters.add("Balls1");
 
         points.add(new Point(0,100));
         points.add(new Point(100,100));
         points.add(new Point(100,200));
         points.add(new Point(50,300));
         points.add(new Point(0,200));
-        bounds = new Boundary(points, defaultAttributes);
-        testZone = new Zone("Zone",bounds,new Color(50,200,50));
+        bounds = new Boundary(points);
+        testZone = new Zone("Zone",bounds,new Color(50,200,50), defaultAttributes);
         bounds.addPoint(new Point(600,200));
 
         buttonSetup();
@@ -58,7 +59,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         }
         g.translate(x, y);
         moldova.paint(g);
-        testZone.paint(g);
+        if(testZone.checkFilters(Filters)) testZone.paint(g);
         
         buttonHandler();
         if(mouse.mouseDown == true) {

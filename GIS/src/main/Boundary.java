@@ -58,7 +58,7 @@ public class Boundary {
 		}
 
 		swap(0, min);
-		p0 = points.getFirst();
+		p0 = points.get(0);
 		points.sort(new pointComparator());
 		System.out.println(points);
 	}

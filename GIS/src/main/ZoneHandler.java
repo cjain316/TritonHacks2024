@@ -19,7 +19,6 @@ public class ZoneHandler {
     String[] dirFiles;
     public ZoneHandler() {
         dirFiles = getFileNames(savesLocation);
-        System.out.println(arrToString(dirFiles));
     }
 
     public void save(Zone zoneInit) {
@@ -99,8 +98,6 @@ public class ZoneHandler {
                 String attributesRaw = s.next();
                 ArrayList<String> attributes = getAttributesFromRaw(attributesRaw);
 
-                System.out.println(attributes.toString());
-
                 Zone add = new Zone(name,boundary,new Color(
                         randInt(170,250),
                         randInt(170,250),
@@ -119,9 +116,11 @@ public class ZoneHandler {
     }
 
     private ArrayList<String> getAttributesFromRaw(String raw) {
-        String[] data = raw.split("\\.");
+        String raw1 = (raw.split("\\.")[1]);
+        String[] data = raw1.split(",");
+
         ArrayList<String> output = new ArrayList<String>();
-        for (int i = 1; i < data.length-1; i++) {
+        for (int i = 0; i < data.length; i++) {
             output.add(data[i]);
         }
         return output;

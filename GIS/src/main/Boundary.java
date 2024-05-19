@@ -81,8 +81,4 @@ public class Boundary {
 
 	public int getNumPoints() { return points.size(); }
 
-	public String toString() {
-		String output = "";
-		
-	}
 }

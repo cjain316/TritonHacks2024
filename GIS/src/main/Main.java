@@ -8,7 +8,6 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 import java.util.ArrayList;
-import java.awt.Graphics;
 
 import javax.swing.*;
 
@@ -23,7 +22,11 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
             new Coordinate(new Latitude(47,33,28),new Latitude(29,00,29)),
             new Coordinate(new Latitude(46,58,58),new Latitude(30,17,7))
     );
+    
+    //transform graphics stuff
     int x = 0, y = 0;
+    //borders
+    int width = 5370, height = 3490;
 
     public ArrayList<Button> buttons = new ArrayList<Button>();
 
@@ -47,11 +50,46 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     public void paint(Graphics g) {
         super.paintComponent(g);
         updateRoot();
-
+        
+        //make sure can't scroll past boundaries
+        int maxX = sysinf.getScreenSize().width - width;
+        int maxY = sysinf.getScreenSize().height - height;
+        
+        System.out.println("maxX: " + maxX);
+                
+	    x = x < maxX ? maxX : x;
+	    y = y < maxY ? maxY : y;
+        x = x > 0 ? 0 : x;
+        y = y > 0 ? 0 : y;
+        
+        //translate when drag
+        int xdist = mouse.x - mouse.clickx;
+    	int ydist = mouse.y - mouse.clicky;
+    	
         if(mouse.mouseDown) {
-        	g.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
+        	if(x + xdist > 0) {
+        		xdist = -x;
+        	}
+        	
+        	if(y + ydist > 0) {
+        		ydist = -y;
+        	}
+        	
+        	if(x + xdist < maxX) {
+        		x = maxX;
+        		xdist = 0;
+        	}
+        	
+        	if(y + ydist < maxY) {
+        		y = maxY;
+        		ydist = 0;
+        	}
+        	
+        	g.translate(xdist, ydist);
         }
+        
         g.translate(x, y);
+                
         moldova.paint(g);
         if (tempzone.boundary.points.size() > 0) {
             tempzone.paint(g);
@@ -59,8 +97,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         paintZones(g);
         
         buttonHandler();
+        
+        //revert drag changes lmao
         if(mouse.mouseDown) {
-        	g.translate(-(mouse.x - mouse.clickx), -(mouse.y - mouse.clicky));
+        	g.translate(- xdist, - ydist);
         }
 
         g.translate(-x, -y);

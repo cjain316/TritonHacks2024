@@ -83,6 +83,6 @@ public class Boundary {
 
 	public String toString() {
 		String output = "";
-		
+		return output;
 	}
 }

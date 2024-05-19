@@ -40,13 +40,15 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     public Main() {
         defaultAttributes.add("NativePlants");
-        Filters.add("NativePlants");
+        Filters.add("Water");
 
         buttonSetup();
 
         jFrameSetup();
 
         tempzone.attributes.add("Water");
+
+        zones = zoneHandler.parseZones();
     }
 
     public void paint(Graphics g) {

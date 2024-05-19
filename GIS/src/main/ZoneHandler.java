@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,11 +16,16 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class ZoneHandler {
-    String savesLocation = "src/main/resources/dataresources/zonesaves/";
+    String savesLocation = "/main/resources/dataresources/zonesaves/";
     String[] dirFiles;
     public ZoneHandler() {
+        System.out.println(ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation);
+        savesLocation = ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation;
         dirFiles = getFileNames(savesLocation);
-        System.out.println(arrToString(dirFiles));
+
+        for (String s: dirFiles) {
+            System.out.println(s);
+        }
     }
 
     public void save(Zone zoneInit) {
@@ -45,7 +51,8 @@ public class ZoneHandler {
 
     public static String[] getFileNames(String directoryPath) {
         try {
-            Path dirPath = FileSystems.getDefault().getPath(directoryPath);
+            File f = new File(directoryPath);
+            Path dirPath = f.toPath();
             if (Files.isDirectory(dirPath)) {
                 List<String> fileNames = new ArrayList<>();
                 Files.list(dirPath)
@@ -99,10 +106,12 @@ public class ZoneHandler {
                 String attributesRaw = s.next();
                 ArrayList<String> attributes = getAttributesFromRaw(attributesRaw);
 
-                System.out.println(attributes.toString());
-
-                Zone add = new Zone(name,boundary,new Color(90,250,90),attributes);
-                //add.boundary.lineCords = lineCoords;
+                Zone add = new Zone(name,boundary,new Color(
+                        randInt(170,250),
+                        randInt(170,250),
+                        randInt(170,250)
+                ),attributes);
+                add.boundary.lineCords = lineCoords;
 
                 output.add(add);
 
@@ -115,9 +124,11 @@ public class ZoneHandler {
     }
 
     private ArrayList<String> getAttributesFromRaw(String raw) {
-        String[] data = raw.split("\\.");
+        String raw1 = (raw.split("\\.")[1]);
+        String[] data = raw1.split(",");
+
         ArrayList<String> output = new ArrayList<String>();
-        for (int i = 1; i < data.length-1; i++) {
+        for (int i = 0; i < data.length; i++) {
             output.add(data[i]);
         }
         return output;
@@ -168,5 +179,9 @@ public class ZoneHandler {
         String raw1 = raw.substring(1,raw.length()-1);
         String[] data = raw1.split(",");
         return new Point(parseInt(data[0]),parseInt(data[1]));
+    }
+
+    private int randInt(int high, int low) {
+        return ((int)(Math.random()*(high-low)) + low);
     }
 }

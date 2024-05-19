@@ -60,7 +60,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
         jFrameSetup();
 
-        tempzone.attributes.add("Water");
+        tempzone.attributes.add("Flowing Water");
+        tempzone.attributes.add("Shallow");
     }
 
     public void paint(Graphics g) {

@@ -16,11 +16,26 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class ZoneHandler {
-    String savesLocation = "main/resources/dataresources/zonesaves/";
+    String savesLocation = "GIS/src/main/resources/dataresources/zonesaves/";
     String[] dirFiles;
     public ZoneHandler() {
-        System.out.println(ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation);
-        savesLocation = ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation;
+        String templocation = ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation;
+        String[] urlpath = templocation.split("/");
+        int index = 0;
+        for (int i = 0; i < urlpath.length; i++) {
+            if (urlpath[i].equals("TritonHacks2024")) {
+                index = i+1;
+            }
+        }
+        templocation = "";
+        for (int a = 0; a < index; a++) {
+            templocation += urlpath[a] + "/";
+        }
+        templocation += savesLocation;
+        savesLocation = templocation;
+
+        System.out.println(savesLocation);
+
         dirFiles = getFileNames(savesLocation);
 
         for (String s: dirFiles) {

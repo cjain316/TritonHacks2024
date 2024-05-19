@@ -99,6 +99,8 @@ public class ZoneHandler {
                 String attributesRaw = s.next();
                 ArrayList<String> attributes = getAttributesFromRaw(attributesRaw);
 
+                System.out.println(attributes.toString());
+
                 Zone add = new Zone(name,boundary,new Color(90,250,90),attributes);
                 //add.boundary.lineCords = lineCoords;
 

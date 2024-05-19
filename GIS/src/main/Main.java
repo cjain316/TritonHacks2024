@@ -33,6 +33,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     ArrayList<String> defaultAttributes = new ArrayList<String>();
     ArrayList<String> Filters = new ArrayList<String>();
 
+    public ZoneHandler zoneHandler = new ZoneHandler();
+
     public Main() {
         defaultAttributes.add("NativePlants");
         Filters.add("NativePlants");
@@ -207,7 +209,13 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         return (int)((Math.random()*range)+low);
     }
 
+    public void parseZones() {
 
+    }
+
+    public void addZone() {
+
+    }
 
 
     @Override

@@ -43,14 +43,17 @@ public class Zone {
 		int minI = 0; double minDist = Point.distFromLine(p, boundary.get(0), boundary.get(1));
 		int n = boundary.size();
 		for(int i = 1; i < n; i++){
-			double dist = Point.distFromLine(p, boundary.get(i), boundary.get((i+1)%n));
+			double dist = Point.distFromLine(boundary.get(i), boundary.get((i+1)%n), p);
 			if(minDist > dist){
 				minDist = dist;
 				minI = i;
 			}
 		}
-		if(minDist < 10) return null;
+		System.out.println(boundary.get(minI) + " " + boundary.get((minI+1)%n));
+		if(minDist > 10) return null;
 		boundary.points.add((minI+1)%n, new Point(p.x, p.y));
+		System.out.println(boundary.points);
+		boundary.makeLines();
 		return boundary.get((minI+1)%n);
 	}
 }

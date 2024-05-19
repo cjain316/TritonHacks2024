@@ -29,9 +29,9 @@ public class Point {
 		nextPoint = p;
 	}
 
-	public static int dist(Point p1, Point p2){
-		return (int)Math.pow(p1.x - p2.x, 2) +
-				(int)Math.pow(p1.y - p2.y, 2);
+	public static double dist(Point p1, Point p2){
+		return Math.sqrt((int)Math.pow(p1.x - p2.x, 2) +
+				(int)Math.pow(p1.y - p2.y, 2));
 	}
 
 	// 0 --> Collinear
@@ -44,9 +44,23 @@ public class Point {
 		return (val > 0)? 1: 2; // clockwise or counterclock wise
 	}
 
+	static boolean isPointBetweenTwoPoints(Point p1, Point p2, Point p) {
+		int x1 = p1.x, x2 = p2.x, x = p.x;
+		int y1 = p1.y, y2 = p2.y, y = p.y;
+		double distanceAC = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
+		double distanceCB = Math.sqrt(Math.pow(x2 - x,2) + Math.pow(y2 - y, 2));
+		double distanceAB = Math.sqrt(Math.pow(x2 - x1,2) + Math.pow(y2 - y1, 2));
+		return Math.abs(distanceAC + distanceCB - distanceAB) < 1e-9;
+	}
+
 	public static double distFromLine(Point A, Point B, Point C){
 		 double area = Math.abs(((B.x - A.x)*(C.y - A.y) -
 						  (B.y - A.y)*(C.x - A.x)));
+		 if(area == 0){
+			 if(isPointBetweenTwoPoints(A, B, C)) return 0;
+			 return 11;
+
+		 }
 		 double length = Math.sqrt(Math.pow(B.x-A.x, 2) + Math.pow(B.y-A.y, 2));
 		 return area/length;
 	}

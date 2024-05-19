@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Vector;
 
 public class Boundary {
 
@@ -26,7 +27,7 @@ public class Boundary {
 	public Boundary(ArrayList<Point> points) {
 		this.points = points;
 		lineCords = new ArrayList<int[]>();
-
+		remakeLoop();
 		makeLines();
 	}
 
@@ -46,21 +47,33 @@ public class Boundary {
 			lineCords.add(new int[] {points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y});
 		}
 	}
-
+	
+	// Convex Hull using Jarvis' Algorithm
+	// From Geeks for Geeks
 	private void remakeLoop(){
-		if(points.size() < 2) return;
 		int n = points.size();
-		int ymin = points.get(0).y, min = 0;
-		for (int i = 1; i < n; i++) {
-			int y = points.get(i).y;
-			if ((y < ymin) || (ymin == y && points.get(i).x < points.get(min).x))
-				ymin = points.get(i).y; min = i;
-		}
+		if (n < 3) return;
+		ArrayList<Point> hull = new ArrayList<Point>();
 
-		swap(0, min);
-		p0 = points.get(0);
-		points.sort(new pointComparator());
-		System.out.println(points);
+		int l = 0;
+		for (int i = 1; i < n; i++)
+			if (points.get(i).x < points.get(l).x)
+				l = i;
+		int p = l, q;
+		do
+		{
+			hull.add(points.get(p));
+			q = (p + 1) % n;
+			for (int i = 0; i < n; i++)
+			{
+				if (Point.orientation(points.get(p), points.get(i), points.get(q)) == 2)
+					q = i;
+			}
+			p = q;
+
+		} while (p != l);
+		System.out.println(hull);
+		points = hull;
 	}
 
 	private void swap(int i, int j){

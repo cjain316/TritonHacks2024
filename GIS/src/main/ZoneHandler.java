@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,10 +16,16 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class ZoneHandler {
-    String savesLocation = "src\\main\\resources\\dataresources\\zonesaves\\";
+    String savesLocation = "/main/resources/dataresources/zonesaves/";
     String[] dirFiles;
     public ZoneHandler() {
+        System.out.println(ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation);
+        savesLocation = ZoneHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath() + savesLocation;
         dirFiles = getFileNames(savesLocation);
+
+        for (String s: dirFiles) {
+            System.out.println(s);
+        }
     }
 
     public void save(Zone zoneInit) {
@@ -44,7 +51,8 @@ public class ZoneHandler {
 
     public static String[] getFileNames(String directoryPath) {
         try {
-            Path dirPath = FileSystems.getDefault().getPath(directoryPath);
+            File f = new File(directoryPath);
+            Path dirPath = f.toPath();
             if (Files.isDirectory(dirPath)) {
                 List<String> fileNames = new ArrayList<>();
                 Files.list(dirPath)

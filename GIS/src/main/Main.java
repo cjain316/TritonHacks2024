@@ -45,6 +45,8 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         buttonSetup();
 
         jFrameSetup();
+
+        tempzone.attributes.add("Water");
     }
 
     public void paint(Graphics g) {

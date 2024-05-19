@@ -81,25 +81,39 @@ public class Boundary {
 
 	public int getNumPoints() { return points.size(); }
 
+	public String PointToString(Point p) {
+		String output = "(";
+		output += (int)(p.x) + "," + (int)(p.y);
+		output += ")";
+		return output;
+	}
+
 	public String PointsToString() {
-		String output = "";
-		output += points.toString();
+		String output = "[";
+		for (int i = 0; i < points.size()-1; i++) {
+			output += PointToString(points.get(i));
+			output += ",";
+		}
+		output += PointToString(points.get(points.size()-1));
+		output+= "]";
 		return output;
 	}
 
 	public String LinecoordsToString() {
 		String output = "[";
-		for (int i = 0; i < lineCords.size(); i++) {
-			System.out.println(lineCords.get(i).length);
+		for (int i = 0; i < lineCords.size()-1; i++) {
+			output += arrToString(lineCords.get(i)) + ",";
 		}
+		output += arrToString(lineCords.get(lineCords.size()-1)) + "]";
 		return output;
 	}
 
 	private String arrToString(int[] arr) {
 		String output = "[";
-		for (int i = 0; i < arr.length; i++) {
-			output += arr[i] + ", ";
+		for (int i = 0; i < arr.length-1; i++) {
+			output += arr[i] + ",";
 		}
+		output += arr[arr.length-1];
 		output += "]";
 		return output;
 	}

@@ -24,7 +24,7 @@ public class ZoneHandler {
             FileWriter f = new FileWriter(filePath);
             f.write(z.name + "\n");
             f.write(z.boundary.PointsToString() + "\n");
-            f.write(z.boundary.LinecoordsToString()+"\n");
+            f.write(z.boundary.LinecoordsToString());
 
             f.close();
 
@@ -54,7 +54,7 @@ public class ZoneHandler {
     private String arrToString(String[] arr) {
         String output = "[";
         for (int i = 0; i < arr.length; i++) {
-            output += arr[i] + ", ";
+            output += arr[i] + ",";
         }
         output += "]";
         return output;

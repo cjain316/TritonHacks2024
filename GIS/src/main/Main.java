@@ -54,8 +54,6 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         //make sure can't scroll past boundaries
         int maxX = sysinf.getScreenSize().width - width;
         int maxY = sysinf.getScreenSize().height - height;
-        
-        System.out.println("maxX: " + maxX);
                 
 	    x = x < maxX ? maxX : x;
 	    y = y < maxY ? maxY : y;

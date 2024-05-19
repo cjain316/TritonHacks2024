@@ -37,12 +37,14 @@ public class Boundary {
 	}
 
 	public void makeLines() {
-		lineCords.clear();
-		for(int i = 0; i < points.size() - 1; i ++) {
-			int[] lineCord = {points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y};
-			lineCords.add(lineCord);
+		if (points.size() > 0) {
+			lineCords.clear();
+			for(int i = 0; i < points.size() - 1; i ++) {
+				int[] lineCord = {points.get(i).x, points.get(i).y, points.get(i + 1).x, points.get(i + 1).y};
+				lineCords.add(lineCord);
+			}
+			lineCords.add(new int[] {points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y});
 		}
-		lineCords.add(new int[] {points.get(0).x, points.get(0).y, points.get(points.size() - 1).x, points.get(points.size() - 1).y});
 	}
 
 	private void remakeLoop(){
@@ -74,4 +76,6 @@ public class Boundary {
 			g2d.drawLine(cords[0], cords[1], cords[2], cords[3]);
 		}
 	}
+
+	public int getNumPoints() { return points.size(); }
 }

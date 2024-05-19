@@ -27,24 +27,15 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
 
     public ArrayList<Button> buttons = new ArrayList<Button>();
 
+    public ArrayList<Zone> zones = new ArrayList<Zone>();
+    public Zone tempzone = new Zone("zonertron",new Boundary(new ArrayList<Point>()),new Color(90,250,90),new ArrayList<String>());
     ArrayList<Point> points = new ArrayList<Point>();
     ArrayList<String> defaultAttributes = new ArrayList<String>();
     ArrayList<String> Filters = new ArrayList<String>();
-    Boundary bounds;
-    Zone testZone;
 
     public Main() {
-        defaultAttributes.add("Balls1");
-        Filters.add("Balls1");
-
-        points.add(new Point(0,100));
-        points.add(new Point(100,100));
-        points.add(new Point(100,200));
-        points.add(new Point(50,300));
-        points.add(new Point(0,200));
-        bounds = new Boundary(points);
-        testZone = new Zone("Zone",bounds,new Color(50,200,50), defaultAttributes);
-        bounds.addPoint(new Point(600,200));
+        defaultAttributes.add("NativePlants");
+        Filters.add("NativePlants");
 
         buttonSetup();
 
@@ -55,21 +46,22 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         super.paintComponent(g);
         updateRoot();
 
-        if(mouse.mouseDown == true) {
+        if(mouse.mouseDown) {
         	g.translate(mouse.x - mouse.clickx, mouse.y - mouse.clicky);
         }
         g.translate(x, y);
         moldova.paint(g);
-        if(testZone.checkFilters(Filters)) testZone.paint(g);
+        if (tempzone.boundary.points.size() > 0) {
+            tempzone.paint(g);
+        }
+        paintZones(g);
         
         buttonHandler();
-        if(mouse.mouseDown == true) {
+        if(mouse.mouseDown) {
         	g.translate(-(mouse.x - mouse.clickx), -(mouse.y - mouse.clicky));
         }
 
         g.translate(-x, -y);
-        
-        mouse.paint(g);
 
         paintButtons(g);
     }
@@ -172,6 +164,14 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         ));
     }
 
+    public void paintZones(Graphics g) {
+        for (Zone z: zones) {
+            if (z.boundary.getNumPoints() > 0 && z.checkFilters(Filters)) {
+                z.paint(g);
+            }
+        }
+    }
+
     JFrame f = new JFrame("GIS");
 
     public void jFrameSetup() {
@@ -264,6 +264,10 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     	mouse.mouseDown = false;
     	x += mouse.x - mouse.clickx;
     	y += mouse.y - mouse.clicky;
+        tempzone.boundary.addPoint(new Point(
+                mouse.x - x,
+                mouse.y - y
+        ));
     }
 
     @Override

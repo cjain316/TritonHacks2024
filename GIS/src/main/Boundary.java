@@ -12,17 +12,6 @@ public class Boundary {
 
 	public ArrayList<Point> points;
 	public ArrayList<int[]> lineCords;
-	Point p0;
-
-	class pointComparator implements Comparator<Point> {
-		public int compare(Point p1, Point p2) {
-
-			int o = Point.orientation(p0, p1, p2);
-			if (o == 0)
-				return (Point.dist(p0, p2) >= Point.dist(p0, p1))? -1 : 1;
-			return (o == 2)? -1: 1;
-		}
-	}
 
 	public Boundary(ArrayList<Point> points) {
 		this.points = points;
@@ -91,4 +80,9 @@ public class Boundary {
 	}
 
 	public int getNumPoints() { return points.size(); }
+
+	public String toString() {
+		String output = "";
+		
+	}
 }

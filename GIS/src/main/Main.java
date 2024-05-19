@@ -8,6 +8,7 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 import java.util.ArrayList;
+import java.awt.Graphics;
 
 import javax.swing.*;
 

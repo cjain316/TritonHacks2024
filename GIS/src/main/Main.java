@@ -16,7 +16,7 @@ import javax.swing.*;
 //bottom right 46 58 58 N 30 17 07 E
 
 public class Main extends JPanel implements KeyListener, ActionListener, MouseListener {
-    public SysInf sysinf = new SysInf();
+	public SysInf sysinf = new SysInf();
     public Mouse mouse = new Mouse();
     public Map moldova = new Map("resources/imgresources/moldova.png",
             new Coordinate(new Latitude(47,33,28),new Latitude(29,00,29)),
@@ -37,10 +37,20 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     ArrayList<String> Filters = new ArrayList<String>();
 
     public ZoneHandler zoneHandler = new ZoneHandler();
+    
+    DropdownMenu menu;
 
     public Main() {
         defaultAttributes.add("NativePlants");
-        Filters.add("NativePlants");
+        
+        //IMPORTANT HISTORY DO NOT DELETE
+//        ArrayList<String> attributes = new ArrayList<String>();
+//        attributes.add("flat");
+//        attributes.add("water");
+//        attributes.add("freaky 👅");
+        zones = zoneHandler.parseZones();
+        menu = new DropdownMenu(0, 0, 100, sysinf.getScreenSize().height/18, zones);
+
 
         buttonSetup();
 
@@ -56,6 +66,9 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         //make sure can't scroll past boundaries
         int maxX = sysinf.getScreenSize().width - width;
         int maxY = sysinf.getScreenSize().height - height;
+        
+        //System.out.println("maxX: " + maxX);
+		//github.com/cjain316/TritonHacks2024.git
                 
 	    x = x < maxX ? maxX : x;
 	    y = y < maxY ? maxY : y;
@@ -106,6 +119,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         g.translate(-x, -y);
 
         paintButtons(g);
+        menu.paint(g);
     }
 
     public static void main(String[] args) {
@@ -311,6 +325,7 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
     		mouse.mouseDown = true;
             mouse.clickx = e.getX();
             mouse.clicky = e.getY();
+            menu.checkClick(e);
             break;
     	}
     }

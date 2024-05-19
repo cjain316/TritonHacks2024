@@ -35,14 +35,14 @@ public class Main extends JPanel implements KeyListener, ActionListener, MouseLi
         defaultAttributes.add("Balls1");
 
 
-        points.add(new Point(0,100,defaultAttributes));
-        points.add(new Point(100,100,defaultAttributes));
-        points.add(new Point(100,200,defaultAttributes));
-        points.add(new Point(50,300,defaultAttributes));
-        points.add(new Point(0,200,defaultAttributes));
-        bounds = new Boundary(points);
+        points.add(new Point(0,100));
+        points.add(new Point(100,100));
+        points.add(new Point(100,200));
+        points.add(new Point(50,300));
+        points.add(new Point(0,200));
+        bounds = new Boundary(points, defaultAttributes);
         testZone = new Zone("Zone",bounds,new Color(50,200,50));
-        bounds.addPoint(new Point(600,200,defaultAttributes));
+        bounds.addPoint(new Point(600,200));
 
         buttonSetup();
 
